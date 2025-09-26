@@ -2,6 +2,8 @@ module github.com/sagikazarmark/crypt
 
 go 1.23.8
 
+replace github.com/sagikazarmark/crypt => github.com/dnonakolesax/crypt v0.32.0
+
 require (
 	cloud.google.com/go/firestore v1.18.0
 	github.com/hashicorp/consul/api v1.32.1
