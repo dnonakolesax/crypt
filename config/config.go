@@ -10,7 +10,7 @@ import (
 	"github.com/sagikazarmark/crypt/backend/etcd"
 	"github.com/sagikazarmark/crypt/backend/firestore"
 	"github.com/sagikazarmark/crypt/backend/natskv"
-	"github.com/sagikazarmark/crypt/backend/vault"
+	"github.com/dnonakolesax/crypt/backend/vault"
 	"github.com/sagikazarmark/crypt/encoding/secconf"
 	goetcdv2 "go.etcd.io/etcd/client/v2"
 	goetcdv3 "go.etcd.io/etcd/client/v3"

@@ -2,7 +2,7 @@ module github.com/dnonakolesax/crypt
 
 go 1.23.8
 
-replace github.com/sagikazarmark/crypt v0.31.0 => github.com/dnonakolesax/crypt v0.32.2
+replace github.com/sagikazarmark/crypt v0.31.0 => github.com/dnonakolesax/crypt v0.32.3
 
 require github.com/sagikazarmark/crypt v0.31.0
 

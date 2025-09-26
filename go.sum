@@ -36,8 +36,8 @@ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc h1:U9qPSI2PIWSS1VwoXQT9A3Wy9MM3WgvqSxFWenqJduM=
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/dnonakolesax/crypt v0.32.0 h1:sGlogjyCDS7rt9WmYWpNSFuADXV2vrEM/nxw1qEyrEY=
-github.com/dnonakolesax/crypt v0.32.0/go.mod h1:Vx3rd2HLVyf/ijDjomXGg8aYJcX1CXxjyS0vxM6GoGQ=
+github.com/dnonakolesax/crypt v0.32.3 h1:XaAN8h10+X1dPMfqY7SRooWCrKVXVU70Jndw9bW34ZU=
+github.com/dnonakolesax/crypt v0.32.3/go.mod h1:76S70YAeOQuyrH6ABLEaa3dJQ4B0jm933Xr0Ci/OKW8=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
 github.com/fatih/color v1.9.0/go.mod h1:eQcE1qtQxscV5RaZvpXrrb8Drkc3/DdQ+uUYCNjL+zU=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
