@@ -2,14 +2,15 @@ package config
 
 import (
 	"bytes"
+	"fmt"
 	"io"
-	"io/ioutil"
 
 	"github.com/sagikazarmark/crypt/backend"
 	"github.com/sagikazarmark/crypt/backend/consul"
 	"github.com/sagikazarmark/crypt/backend/etcd"
 	"github.com/sagikazarmark/crypt/backend/firestore"
 	"github.com/sagikazarmark/crypt/backend/natskv"
+	"github.com/sagikazarmark/crypt/backend/vault"
 	"github.com/sagikazarmark/crypt/encoding/secconf"
 	goetcdv2 "go.etcd.io/etcd/client/v2"
 	goetcdv3 "go.etcd.io/etcd/client/v3"
@@ -43,11 +44,11 @@ func NewStandardConfigManager(client backend.Store) (ConfigManager, error) {
 }
 
 func NewConfigManager(client backend.Store, keystore io.Reader) (ConfigManager, error) {
-	bytes, err := ioutil.ReadAll(keystore)
+	bts, err := io.ReadAll(keystore)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("reading keystore: %w", err)
 	}
-	return configManager{bytes, client}, nil
+	return configManager{bts, client}, nil
 }
 
 // NewStandardFirestoreConfigManager returns a new ConfigManager backed by Firestore.
@@ -65,6 +66,7 @@ func NewStandardEtcdConfigManager(machines []string) (ConfigManager, error) {
 		Endpoints: machines,
 	})
 }
+
 // NewStandardEtcdConfigManagerFromConfig returns a new ConfigManager backed by etcd.
 func NewStandardEtcdConfigManagerFromConfig(config goetcdv2.Config) (ConfigManager, error) {
 	store, err := etcd.NewFromV2Config(config)
@@ -104,6 +106,14 @@ func NewStandardConsulConfigManager(machines []string) (ConfigManager, error) {
 // NewStandardNatsConfigManager returns a new ConfigManager backed by NATS.
 func NewStandardNatsConfigManager(machines []string) (ConfigManager, error) {
 	store, err := natskv.New(machines)
+	if err != nil {
+		return nil, err
+	}
+	return NewStandardConfigManager(store)
+}
+
+func NewStandardVaultConfigManager(vaultAddr string, login string, password string) (ConfigManager, error) {
+	store, err := vault.New(vaultAddr, login, password)
 	if err != nil {
 		return nil, err
 	}

@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"reflect"
 	"testing"
+	"strings"
+	"os"
 
 	"github.com/sagikazarmark/crypt/backend/mock"
+	"github.com/stretchr/testify/assert"
 )
 
 var pubring = `-----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -317,5 +320,62 @@ func Test_Watch_BasePath(t *testing.T) {
 		if r.Error != nil {
 			t.Errorf("Error watching value: %s\n", r.Error.Error())
 		}
+	}
+}
+
+var vaultAddr string = os.Getenv("VAULT_TEST_ADDR")
+var vaultUsername string = os.Getenv("VAULT_TEST_USERNAME")
+var vaultPassword string = os.Getenv("VAULT_TEST_PASSWORD")
+var vaultReady string = os.Getenv("VAULT_READY")
+
+func Test_Vault_KV2(t *testing.T) {
+	if vaultReady == "" {
+		t.Log("Vault not ready, skipping test")
+		return
+	}
+	key := "sample/samplesecret:sampledata"
+	cm, err := NewStandardVaultConfigManager(vaultAddr, vaultUsername, vaultPassword)
+	if err != nil {
+		t.Errorf("Error creating config manager: %s\n", err.Error())
+	}
+	timeout := make(chan bool, 0)
+	resp := cm.Watch(key, timeout)
+	select {
+	case r := <-resp:
+		if r.Error != nil {
+			t.Errorf("Error watching value: %s\n", r.Error.Error())
+		}
+		assert.Equal(t, r.Value, []byte("samplevalue"))
+	}
+
+	key = "database/kc-sesson-selector"
+	resp = cm.Watch(key, timeout)
+	select {
+	case r := <-resp:
+		if r.Error != nil {
+			t.Errorf("Error watching value: %s\n", r.Error.Error())
+		}
+		assert.True(t, strings.HasPrefix(string(r.Value), "v-userpass-kc-sesso"))
+	}
+}
+
+func Test_Vault_DB(t *testing.T) {
+	if vaultReady == "" {
+		t.Log("Vault not ready, skipping test")
+		return
+	}
+	cm, err := NewStandardVaultConfigManager(vaultAddr, vaultUsername, vaultPassword)
+	if err != nil {
+		t.Errorf("Error creating config manager: %s\n", err.Error())
+	}
+	timeout := make(chan bool, 0)
+	key := "database/kc-sesson-selector"
+	resp := cm.Watch(key, timeout)
+	select {
+	case r := <-resp:
+		if r.Error != nil {
+			t.Errorf("Error watching value: %s\n", r.Error.Error())
+		}
+		assert.True(t, strings.HasPrefix(string(r.Value), "v-userpass-kc-sesso"))
 	}
 }
