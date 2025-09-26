@@ -1,8 +1,10 @@
-module github.com/sagikazarmark/crypt
+module github.com/dnonakolesax/crypt
 
 go 1.23.8
 
-replace github.com/sagikazarmark/crypt => github.com/dnonakolesax/crypt v0.32.1
+replace github.com/sagikazarmark/crypt => github.com/dnonakolesax/crypt v0.32.0
+
+require github.com/sagikazarmark/crypt v0.31.0
 
 require (
 	cloud.google.com/go/firestore v1.18.0
@@ -52,7 +54,7 @@ require (
 	github.com/hashicorp/go-secure-stdlib/strutil v0.1.2 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/serf v0.10.1 // indirect
-	github.com/hashicorp/vault-client-go v0.4.3 // indirect
+	github.com/hashicorp/vault-client-go v0.4.3
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
